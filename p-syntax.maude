@@ -1,0 +1,34 @@
+mod P-SYNTAX is including NAT .
+
+  --- Probably need a better way to define Ids
+  sort Id .
+  ops a b c d e f g h i j k l m n o p q r s t u v w x y z : -> Id [ctor] .
+  ops foo eFoo bar eBar buzz : -> Id .
+
+  sort Type .
+  op Int : -> Type .
+
+  sort Decl Decls Stmt Stmts .
+  subsort Decl < Decls Stmt < Stmts .
+  subsort Decl < Stmt Decls < Stmts .
+
+
+  op __ : Decls Decls -> Decls [assoc format(d ni d)] .
+
+  --- Variable Declarations
+  op var_;   : Id      -> Decl [format (r o o o)] .
+  op var_:_; : Id Type -> Decl [format (r o o g o o)].
+
+  --- Event Declarations
+  op event_ : Id -> Decl  [format (r o o)] .
+
+  --- State Declarations
+  op state_{_} : Id Stmts -> Decl [format (d d ni++ ni n--i d)] .
+
+  --- Action Declarations
+      op on_do{_} : Id Stmts -> Decl [format (r o r ni++o ni n--i d)] .
+
+  --- Stmts
+  op goto_; : Id -> Stmt [format (o r o o)] .
+
+endm

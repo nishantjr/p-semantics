@@ -1,0 +1,29 @@
+in "../p-syntax.maude"
+
+mod DECLS-TEST is
+  including P-SYNTAX .
+
+endm
+
+parse var x ; .
+parse var x ; var y ; .
+parse var x : Int ; .
+parse var x : Int ; var y : Int ; .
+
+parse
+  state foo {
+    var x ; var y : Int ;
+  } .
+
+parse
+  on eFoo do {
+    var x ;
+  } .
+
+parse
+  on eFoo do {
+    var x ;
+    goto foo ;
+  } .
+
+quit .
