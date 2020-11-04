@@ -8,25 +8,23 @@ mod P-SYNTAX is including NAT .
   sort Type .
   op Int : -> Type .
 
-  sort Decl Decls Stmt Stmts .
-  subsort Decl < Decls Stmt < Stmts .
-  subsort Decl < Stmt Decls < Stmts .
+  sort Stmt Stmts .
+  subsort  Stmt < Stmts .
 
-
-  op __ : Decls Decls -> Decls [assoc format(d ni d)] .
+  op __ : Stmts Stmts -> Stmts [assoc format(d ni d)] .
 
   --- Variable Declarations
-  op var_;   : Id      -> Decl [format (r o o o)] .
-  op var_:_; : Id Type -> Decl [format (r o o g o o)].
+  op var_;   : Id      -> Stmt [format (r o o o)] .
+  op var_:_; : Id Type -> Stmt [format (r o o g o o)].
 
   --- Event Declarations
-  op event_ : Id -> Decl  [format (r o o)] .
+  op event_ : Id -> Stmt  [format (r o o)] .
 
   --- State Declarations
-  op state_{_} : Id Stmts -> Decl [format (d d ni++ ni n--i d)] .
+  op state_{_} : Id Stmts -> Stmt [format (d d ni++ ni n--i d)] .
 
-  --- Action Declarations
-      op on_do{_} : Id Stmts -> Decl [format (r o r ni++o ni n--i d)] .
+  --- Action Statements
+      op on_do{_} : Id Stmts -> Stmt [format (r o r ni++o ni n--i d)] .
 
   --- Stmts
   op goto_; : Id -> Stmt [format (o r o o)] .
