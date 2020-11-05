@@ -1,3 +1,4 @@
+in "../builtins.maude"
 in "../p-syntax.maude"
 
 mod DECLS-TEST is
@@ -25,5 +26,8 @@ parse
     var x ;
     goto foo ;
   } .
+
+parse 1 + a .
+
 
 quit .

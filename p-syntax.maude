@@ -1,4 +1,4 @@
-mod P-SYNTAX is including NAT .
+mod P-SYNTAX is including PL-INT .
 
   --- Probably need a better way to define Ids
   sort Id .
@@ -28,5 +28,18 @@ mod P-SYNTAX is including NAT .
 
   --- Stmts
   op goto_; : Id -> Stmt [format (o r o o)] .
+
+  --- Expressions
+  sort Exp .
+  subsort Int < Exp .
+  subsort Id < Exp .
+
+  op _+_ : Exp Exp -> Exp [prec 33 gather (E e) format (d b o d)] .
+  op _/_ : Exp Exp -> Exp [prec 31 gather (E e) format (d b o d)] .
+
+  subsort Bool < Exp .
+  op _<=_ : Exp Exp -> Exp  [prec 37 format (d b o d)] .
+  op !_ : Exp -> Exp [prec 53 format (b o d)] .
+  op _&&_ : Exp Exp -> Exp [prec 55 gather (E e) format (d b o d)] .
 
 endm
