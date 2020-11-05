@@ -8,26 +8,32 @@ mod P-SYNTAX is including PL-INT .
   sort Type .
   op Int : -> Type .
 
-  sort Stmt Stmts .
-  subsort  Stmt < Stmts .
+  sorts Block Stmt .
+  subsort Block < Stmt .
 
-  op __ : Stmts Stmts -> Stmts [assoc format(d ni d)] .
+  op {} : -> Block [format (b b o)] .
+  op {_} : Stmt -> Block [format (d n++i n--i d)] .
+  op _=_; : Id Exp -> Stmt [prec 40 format (d b o b o)] .
+  op __ : Stmt Stmt -> Stmt [prec 60 gather (e E) format (d ni d)] .
 
   --- Variable Declarations
-  op var_;   : Id      -> Stmt [format (r o o o)] .
+  op var_;   : Id      -> Stmt [prec 40 format (r o o o)] .
   op var_:_; : Id Type -> Stmt [format (r o o g o o)].
 
   --- Event Declarations
-  op event_ : Id -> Stmt  [format (r o o)] .
+  op event_ : Id -> Stmt  [prec 40 format (r o o)] .
 
   --- State Declarations
-  op state_{_} : Id Stmts -> Stmt [format (d d ni++ ni n--i d)] .
+  op state__ : Id Block -> Stmt [prec 40 ] .
 
   --- Action Statements
-      op on_do{_} : Id Stmts -> Stmt [format (r o r ni++o ni n--i d)] .
+  op on_do_ : Id Stmt -> Stmt [prec 40] .
 
   --- Stmts
   op goto_; : Id -> Stmt [format (o r o o)] .
+
+  op _=_; : Id Exp -> Stmt [prec 40 format (d b o b o)] .
+  op if(_)_else_ : Exp Stmt Stmt -> Stmt [prec 59 format (b so d d s nib o d)] .
 
   --- Expressions
   sort Exp .

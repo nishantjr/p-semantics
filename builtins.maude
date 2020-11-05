@@ -1,14 +1,10 @@
 set include BOOL off .   --- not needed if one runs maude with flag -no-prelude
 
 fmod UNDEFINED is
---- I wish there were some automated way to add this undefined constant
---- and propagate it through all the other constructs ...
   sort Undefined .
   op undefined : -> Undefined .
 endfm
 
---- The module below includes the builtin booleans to be used as "library" for various languages
---- The special operation attributes link those operations to builtin Maude library functions.
 fmod PL-BOOL is including UNDEFINED .
   sort Bool .  subsort Undefined < Bool .
   op true : -> Bool [ctor special (id-hook SystemTrue)] .
@@ -71,17 +67,11 @@ mod PL-INT is including PL-BOOL .
     id-hook NumberOpSymbol (>=)  op-hook succSymbol (sInt_ : Int ~> Int)  op-hook minusSymbol (-Int_ : Int ~> Int)
     term-hook trueTerm (true)  term-hook falseTerm (false))] .
 
---- maxInt is needed for generating fresh variables for substitution.
---- It does not seem to be useful for other things.
---- Annoyingly, I cannot replace the two equations with one, because of the
---- new Maude "feature", which makes the builtin if_then_else_fi obey preregularity checks.
   op maxInt : Int Int -> Int .
   var I1 I2 : Int .
  ceq maxInt(I1,I2) = I1 if I1 >Int I2 .
   eq maxInt(I1,I2) = I2 [owise] .
 
---- I'd like to get rid of equations like below ...
---- How?  Maybe propagating "undefined" at the meta-level (somehow safely)?
   var I : Int .
   eq sInt undefined = undefined .
   eq -Int undefined = undefined .
