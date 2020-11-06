@@ -6,10 +6,14 @@ mod DECLS-TEST is
 
 endm
 
+--- Varible Declarations
+
 parse var x ; .
 parse var x ; var y ; .
 parse var x : Int ; .
 parse var x : Int ; var y : Int ; .
+
+--- State Declarations
 
 parse
   state foo {
@@ -27,6 +31,8 @@ parse
     goto foo ;
   } .
 
+--- Expressions
+
 parse 1 + a .
 
 parse 1 + a + 1 .
@@ -36,5 +42,17 @@ parse x = a + 1 ; .
 parse if (a <= 1)  x = 1 ; else x = 2 ; .
 
 parse if (a <= 1) { x = 1 ; y = 2 ; } else  x = 2 ;  .
+
+--- Machine Declarations
+
+parse machine foo {
+  var x : Int ;
+  var y : Int ;
+
+  on eBar do {
+    var z ;
+    goto bar ;
+  }
+} .
 
 quit .
