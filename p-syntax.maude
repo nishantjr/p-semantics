@@ -6,7 +6,7 @@ mod P-SYNTAX is including PL-INT .
   ops foo eFoo bar eBar buzz : -> Id .
 
   sort Type .
-  op Int : -> Type .
+  ops Int int : -> Type .
 
   sorts Block Stmt .
   subsort Block < Stmt .
@@ -26,14 +26,26 @@ mod P-SYNTAX is including PL-INT .
   --- State Declarations
   op state__ : Id Block -> Stmt [prec 40 ] .
 
+  --- Entry Declarations
+  op entry_ : Block -> Stmt [prec 40] .
+  op entry(_:_)_ : Id Type Block -> Stmt [prec 40] .
+
   --- Action Statements
   op on_do_ : Id Stmt -> Stmt [prec 40] .
 
   --- Stmts
   op goto_; : Id -> Stmt [format (o r o o)] .
 
+  --- Id List
+  sort Ids .
+  subsort Id < Ids .
+
+  op mt : -> Ids .
+  op _,_ : Ids Ids -> Ids [assoc id: mt] .
+
   op _=_; : Id Exp -> Stmt [prec 40 format (d b o b o)] .
   op if(_)_else_ : Exp Stmt Stmt -> Stmt [prec 59 format (b so d d s nib o d)] .
+  op while(_)_ : Exp Block -> Stmt [prec 59 format (b so d d o d)] .
 
   --- Expressions
   sort Exp .
@@ -45,10 +57,13 @@ mod P-SYNTAX is including PL-INT .
 
   subsort Bool < Exp .
   op _<=_ : Exp Exp -> Exp  [prec 37 format (d b o d)] .
+  op _>=_ : Exp Exp -> Exp  [prec 37 format (d b o d)] .
+  op _<_ : Exp Exp -> Exp  [prec 37 format (d b o d)] .
+  op _>_ : Exp Exp -> Exp  [prec 37 format (d b o d)] .
   op !_ : Exp -> Exp [prec 53 format (b o d)] .
   op _&&_ : Exp Exp -> Exp [prec 55 gather (E e) format (d b o d)] .
 
   --- Machines
-  op machine__ : Id Block -> Stmt .
-
+  op machine_;_ : Id Block -> Stmt .
+  op machine_sends_;_ : Id Ids Block -> Stmt .
 endm
