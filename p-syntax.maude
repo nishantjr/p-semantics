@@ -8,12 +8,42 @@ mod P-SYNTAX is including PL-INT .
   sort Type .
   ops Int int : -> Type .
 
+  --- Expressions
+  sort Exp .
+  subsort Int < Exp .
+  subsort Id < Exp .
+
+  op _+_ : Exp Exp -> Exp [prec 33 gather (E e) format (d b o d)] .
+  op _/_ : Exp Exp -> Exp [prec 31 gather (E e) format (d b o d)] .
+
+  subsort Bool < Exp .
+  op _<=_ : Exp Exp -> Exp  [prec 37 format (d b o d)] .
+  op _>=_ : Exp Exp -> Exp  [prec 37 format (d b o d)] .
+  op _<_ : Exp Exp -> Exp  [prec 37 format (d b o d)] .
+  op _>_ : Exp Exp -> Exp  [prec 37 format (d b o d)] .
+  op !_ : Exp -> Exp [prec 53 format (b o d)] .
+  op _&&_ : Exp Exp -> Exp [prec 55 gather (E e) format (d b o d)] .
+
+  --- Machines
+  op machine_;_ : Id Block -> Stmt .
+  op machine_sends_;_ : Id Exps Block -> Stmt .
+
+  --- Expression Lists
+  sort Exps .
+  subsort Exp < Exps .
+
+  op .Exps : -> Exps .
+  op _,_ : Exps Exps -> Exps [assoc id: .Exps] .
+
+  --- Assignment Exp
+  op _=_ : Id Exp -> Exp [prec 40 format (d b o o)] .
+
   sorts Block Stmt .
   subsort Block < Stmt .
 
   op {} : -> Block [format (b b o)] .
   op {_} : Stmt -> Block [format (d n++i n--i d)] .
-  op _=_; : Id Exp -> Stmt [prec 40 format (d b o b o)] .
+  op _; : Exp -> Stmt [prec 40] .
   op __ : Stmt Stmt -> Stmt [prec 60 gather (e E) format (d ni d)] .
 
   --- Variable Declarations
@@ -36,34 +66,8 @@ mod P-SYNTAX is including PL-INT .
   --- Stmts
   op goto_; : Id -> Stmt [format (o r o o)] .
 
-  --- Id List
-  sort Ids .
-  subsort Id < Ids .
-
-  op mt : -> Ids .
-  op _,_ : Ids Ids -> Ids [assoc id: mt] .
-
-  op _=_; : Id Exp -> Stmt [prec 40 format (d b o b o)] .
+  --- Jumps
   op if(_)_else_ : Exp Stmt Stmt -> Stmt [prec 59 format (b so d d s nib o d)] .
   op while(_)_ : Exp Block -> Stmt [prec 59 format (b so d d o d)] .
 
-  --- Expressions
-  sort Exp .
-  subsort Int < Exp .
-  subsort Id < Exp .
-
-  op _+_ : Exp Exp -> Exp [prec 33 gather (E e) format (d b o d)] .
-  op _/_ : Exp Exp -> Exp [prec 31 gather (E e) format (d b o d)] .
-
-  subsort Bool < Exp .
-  op _<=_ : Exp Exp -> Exp  [prec 37 format (d b o d)] .
-  op _>=_ : Exp Exp -> Exp  [prec 37 format (d b o d)] .
-  op _<_ : Exp Exp -> Exp  [prec 37 format (d b o d)] .
-  op _>_ : Exp Exp -> Exp  [prec 37 format (d b o d)] .
-  op !_ : Exp -> Exp [prec 53 format (b o d)] .
-  op _&&_ : Exp Exp -> Exp [prec 55 gather (E e) format (d b o d)] .
-
-  --- Machines
-  op machine_;_ : Id Block -> Stmt .
-  op machine_sends_;_ : Id Ids Block -> Stmt .
 endm
