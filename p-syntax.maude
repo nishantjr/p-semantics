@@ -3,7 +3,7 @@ mod P-SYNTAX is including PL-INT .
   --- Probably need a better way to define Ids
   sort Id .
   ops a b c d e f g h i j k l m n o p q r s t u v w x y z : -> Id [ctor] .
-  ops foo eFoo bar eBar buzz : -> Id .
+  ops this foo eFoo bar eBar buzz : -> Id .
 
   sort Type .
   ops Int int : -> Type .
@@ -28,6 +28,9 @@ mod P-SYNTAX is including PL-INT .
   op machine_;_ : Id Block -> Stmt .
   op machine_sends_;_ : Id Exps Block -> Stmt .
 
+  --- Variable Type Expressions
+  op _:_ : Id Type -> Exp [prec 35 format (d d g o)] .
+
   --- Expression Lists
   sort Exps .
   subsort Exp < Exps .
@@ -36,7 +39,13 @@ mod P-SYNTAX is including PL-INT .
   op _,_ : Exps Exps -> Exps [assoc id: .Exps] .
 
   --- Assignment Exp
-  op _=_ : Id Exp -> Exp [prec 40 format (d b o o)] .
+  op _=_ : Id Exp -> Exp [prec 39 format (d b o o)] .
+
+  --- This Expression
+  op _to_ : Id Type -> Exp [prec 38] .
+
+  --- Attributes Expression
+  op _._ : Exp Exp -> Exp [prec 38] .
 
   sorts Block Stmt .
   subsort Block < Stmt .
@@ -47,27 +56,31 @@ mod P-SYNTAX is including PL-INT .
   op __ : Stmt Stmt -> Stmt [prec 60 gather (e E) format (d ni d)] .
 
   --- Variable Declarations
-  op var_;   : Id      -> Stmt [prec 40 format (r o o o)] .
-  op var_:_; : Id Type -> Stmt [format (r o o g o o)].
+  op var_;   : Exp -> Stmt [prec 40 format (y o o o)] .
 
   --- Event Declarations
   op event_ : Id -> Stmt  [prec 40 format (r o o)] .
 
   --- State Declarations
-  op state__ : Id Block -> Stmt [prec 40 ] .
+  op state__ : Id Block -> Stmt [prec 40 format (d r o d)] .
 
   --- Entry Declarations
   op entry_ : Block -> Stmt [prec 40] .
-  op entry(_:_)_ : Id Type Block -> Stmt [prec 40] .
+  op entry(_)_ : Exp Block -> Stmt [prec 40] .
 
   --- Action Statements
-  op on_do_ : Id Stmt -> Stmt [prec 40] .
+  op on_do_ : Id Stmt -> Stmt [prec 40 format (d r o d d)] .
+  op on_do(_)_ : Id Exp Block -> Stmt [prec 40 format (d r o d d d d d)] .
 
   --- Stmts
   op goto_; : Id -> Stmt [format (o r o o)] .
+  op send_; : Exps -> Stmt [prec 41] .
 
   --- Jumps
   op if(_)_else_ : Exp Stmt Stmt -> Stmt [prec 59 format (b so d d s nib o d)] .
   op while(_)_ : Exp Block -> Stmt [prec 59 format (b so d d o d)] .
+
+  --- Asserts
+  op assert(_); : Exp -> Stmt [format (b o d d d d)] .
 
 endm
