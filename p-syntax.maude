@@ -55,16 +55,16 @@ mod P-SYNTAX is including PL-INT .
   op _; : Exp -> Stmt [prec 40] .
   op __ : Stmt Stmt -> Stmt [prec 60 gather (e E) format (d ni d)] .
 
-  --- Variable Declarations
+  --- Variable Statements
   op var_;   : Exp -> Stmt [prec 40 format (y o o o)] .
 
-  --- Event Declarations
+  --- Event Statements
   op event_ : Id -> Stmt  [prec 40 format (r o o)] .
 
-  --- State Declarations
+  --- State Statements
   op state__ : Id Block -> Stmt [prec 40 format (d r o d)] .
 
-  --- Entry Declarations
+  --- Entry Statements
   op entry_ : Block -> Stmt [prec 40] .
   op entry(_)_ : Exp Block -> Stmt [prec 40] .
 
