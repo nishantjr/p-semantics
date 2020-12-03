@@ -49,6 +49,9 @@ mod P-SYNTAX is including PL-INT .
   --- Attributes Expression
   op _._ : Exp Exp -> Exp [prec 38] .
 
+  --- Object Creation
+  op new_(_) : Id Exps -> Exp [prec 38] .
+
   sorts Block Stmt .
   subsort Block < Stmt .
 
@@ -65,7 +68,7 @@ mod P-SYNTAX is including PL-INT .
 
   --- State Statements
   op state__ : Id Block -> Stmt [prec 40 format (d r o d)] .
-  op start state__ : Id Block -> Stmt [prec 39 format (d r o d)] .
+  op start state__ : Id Block -> Stmt [prec 39 format (d d r o d)] .
 
   --- Entry Statements
   op entry_ : Block -> Stmt [prec 40] .
