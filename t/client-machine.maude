@@ -1,7 +1,6 @@
 --- Client machine from P client-server example
 
-in "../builtins.maude"
-in "../p-syntax.maude"
+in "../p-syntax.maude" .
 
 mod DECLS-TEST is
   including P-SYNTAX .

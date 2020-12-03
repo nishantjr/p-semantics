@@ -1,3 +1,5 @@
+in "builtins.maude" .
+
 mod P-SYNTAX is including PL-INT .
 
   --- Probably need a better way to define Ids
@@ -63,6 +65,7 @@ mod P-SYNTAX is including PL-INT .
 
   --- State Statements
   op state__ : Id Block -> Stmt [prec 40 format (d r o d)] .
+  op start state__ : Id Block -> Stmt [prec 39 format (d r o d)] .
 
   --- Entry Statements
   op entry_ : Block -> Stmt [prec 40] .

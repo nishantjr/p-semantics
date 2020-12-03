@@ -1,0 +1,7 @@
+in "p-syntax.maude"
+
+mod P-SEMANTICS is including P-SYNTAX .
+
+  sort foo .
+
+endm
