@@ -1,88 +1,14 @@
-set include BOOL off .   --- not needed if one runs maude with flag -no-prelude
+--- set include BOOL off .   --- not needed if one runs maude with flag -no-prelude
 
-fmod UNDEFINED is
-  sort Undefined .
-  op undefined : -> Undefined .
+fmod RENAMED-INT is
+ protecting INT * ( op _and_ : Bool Bool -> Bool to _andBool_ ,
+                    op _or_ : Bool Bool -> Bool to _orBool_ ,
+                    op not_ : Bool Bool -> Bool to notBool_ ,
+                    op not_ : Bool Bool -> Bool to notBool_ ,
+                    op _+_ : Int Int -> Int to _+Int_,
+                    op _-_ : Int Int -> Int to _-Int_,
+                    op _*_ : NzInt NzInt -> NzInt to _*Int_,
+                    op _quo_ : Int NzInt -> Int to _/Int_,
+                    op _rem_ : Int NzInt -> Int to _%Int_,
+                    op _^_ : Int Nat -> Int to _^Int_) .
 endfm
-
-fmod PL-BOOL is including UNDEFINED .
-  sort Bool .  subsort Undefined < Bool .
-  op true : -> Bool [ctor special (id-hook SystemTrue)] .
-  op false : -> Bool [ctor special (id-hook SystemFalse)] .
-  op if_then_else_fi : Bool Universal Universal -> Universal [poly (2 3 0)
-    special (
-    id-hook BranchSymbol
-    term-hook 1 (true)
-    term-hook 2 (false))] .
-  op _==Bool_ : Universal Universal -> Bool [poly (1 2) prec 51 special (
-    id-hook EqualitySymbol
-    term-hook equalTerm (true)
-    term-hook notEqualTerm (false))] .
-  op _=/=Bool_ : Universal Universal -> Bool [poly (1 2) prec 51 special (
-    id-hook EqualitySymbol
-    term-hook equalTerm (false)
-    term-hook notEqualTerm (true))] .
-
-  op _andBool_ : Bool Bool -> Bool [assoc comm prec 55] .
-  op _orBool_ : Bool Bool -> Bool [assoc comm prec 59   metadata "latex(renameTo _\\ensuremath{\\vee}_)"] .
-  op _xorBool_ : Bool Bool -> Bool [assoc comm prec 57] .
-  op notBool_ : Bool -> Bool [prec 53 metadata "latex(renameTo not\\subscript{\\small\\textit{Bool}}_)"] .
-  op _impliesBool_ : Bool Bool -> Bool [gather (e E) prec 61] .
-  vars A B C : Bool .
-  eq true andBool A = A .
-  eq false andBool A = false .
-  eq A andBool A = A .
-  eq false xorBool A = A .
-  eq A xorBool A = false .
-  eq A andBool (B xorBool C) = A andBool B xorBool A andBool C .
-  eq notBool A = A xorBool true .
-  eq A orBool B = A andBool B xorBool A xorBool B .
-  eq A impliesBool B = notBool(A xorBool A andBool B) .
-
-  eq undefined andBool A = undefined .
-  eq undefined xorBool A = undefined .
-endfm
-
-mod PL-INT is including PL-BOOL .
-  sort Int .  subsort Undefined < Int .
-  op 0 : -> Int [ctor] .
-  op sInt_ : Int -> Int [iter ctor special (id-hook SuccSymbol  term-hook zeroTerm (0))] .
-  op -Int_ : Int -> Int [ctor special (
-    id-hook MinusSymbol  op-hook succSymbol (sInt_ : Int ~> Int)  op-hook minusSymbol (-Int_ : Int ~> Int))] .
-  op _+Int_ : Int Int -> Int [assoc comm prec 33 special (
-    id-hook ACU_NumberOpSymbol (+)  op-hook succSymbol (sInt_ : Int ~> Int)  op-hook minusSymbol (-Int_ : Int ~> Int))] .
-  op _*Int_ : Int Int -> Int [assoc comm prec 31 special (
-    id-hook ACU_NumberOpSymbol (*)  op-hook succSymbol (sInt_ : Int ~> Int)  op-hook minusSymbol (-Int_ : Int ~> Int))] .
-  op _-Int_ : Int Int -> Int [prec 33 gather (E e) special (
-    id-hook NumberOpSymbol (-)  op-hook succSymbol (sInt_ : Int ~> Int)  op-hook minusSymbol (-Int_ : Int ~> Int))] .
-  op _/Int_ : Int Int -> Int [prec 31 gather (E e) special (
-    id-hook NumberOpSymbol (quo)  op-hook succSymbol (sInt_ : Int ~> Int))] .
-  op _<=Int_ : Int Int -> Bool [prec 37 special (
-    id-hook NumberOpSymbol (<=)  op-hook succSymbol (sInt_ : Int ~> Int)  op-hook minusSymbol (-Int_ : Int ~> Int)
-    term-hook trueTerm (true)  term-hook falseTerm (false))] .
-  op _>Int_ : Int Int -> Bool [prec 37 special (
-    id-hook NumberOpSymbol (>)  op-hook succSymbol (sInt_ : Int ~> Int)  op-hook minusSymbol (-Int_ : Int ~> Int)
-    term-hook trueTerm (true)  term-hook falseTerm (false))] .
-  op _>=Int_ : Int Int -> Bool [prec 37 special (
-    id-hook NumberOpSymbol (>=)  op-hook succSymbol (sInt_ : Int ~> Int)  op-hook minusSymbol (-Int_ : Int ~> Int)
-    term-hook trueTerm (true)  term-hook falseTerm (false))] .
-
-  op maxInt : Int Int -> Int .
-  var I1 I2 : Int .
- ceq maxInt(I1,I2) = I1 if I1 >Int I2 .
-  eq maxInt(I1,I2) = I2 [owise] .
-
-  var I : Int .
-  eq sInt undefined = undefined .
-  eq -Int undefined = undefined .
-  eq undefined +Int I = undefined .
-  eq undefined *Int I = undefined .
-  eq undefined -Int I = undefined .
-  eq I -Int undefined = undefined .
-  eq undefined /Int I = undefined .
-  eq I /Int undefined = undefined .
-  eq undefined <=Int I = undefined .
-  eq I <=Int undefined = undefined .
-  eq undefined >Int I = undefined .
-  eq I >Int undefined = undefined .
-endm

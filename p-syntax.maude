@@ -1,6 +1,8 @@
 in "builtins.maude" .
+set include BOOL off .   --- not needed if one runs maude with flag -no-prelude
 
-mod P-SYNTAX is including PL-INT .
+mod P-SYNTAX is
+  protecting RENAMED-INT .
 
   --- Probably need a better way to define Ids
   sort Id .
