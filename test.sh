@@ -2,13 +2,19 @@
 
 set -e
 
-for file in t/*.maude
-do
-  echo "==== $file"
-  out=$( ($MAUDE $file) 2>&1 )
-  if [[ $out =~ "no parse" ]];
-  then
-    echo "[Parse Failure]: $file"
-    exit 1
-  fi
+runmaude()  {
+  maude -no-banner -no-wrap <(echo 'set show timing off .') "$@"
+}
+
+dodiff() {
+  git --no-pager diff --no-index --word-diff "$@"
+}
+
+for t in t/*.maude; do
+  test_actual=$(mktemp -t tmp-tableaux-XXXXXX)
+  runmaude "$t" </dev/null &> "$test_actual"
+  dodiff "$test_actual" "$t.expected"
 done
+
+echo 'Passed.'
+

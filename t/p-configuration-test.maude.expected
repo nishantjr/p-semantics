@@ -1,0 +1,99 @@
+==========================================
+reduce in P-CONFIGURATION-TEST : 
+<k>
+  x = x + 1 ;
+  y = y + 2 ;
+</k> .
+rewrites: 0
+result Cell: 
+<k>
+  x = x + 1 ;
+  y = y + 2 ;
+</k>
+==========================================
+reduce in P-CONFIGURATION-TEST : 
+<k>
+  machine M1 ; {
+    x = 2 ;
+  }
+</k> .
+rewrites: 0
+result Cell: 
+<k>
+  machine M1 ; {
+    x = 2 ;
+  }
+</k>
+==========================================
+reduce in P-CONFIGURATION-TEST : 
+<k>
+  x = x + 1 ;
+</k> 
+<machines>
+  
+    M1 |-> machine M1 ; {
+      x = 2 ;
+    }
+   
+    M2 |-> machine M2 ; {
+      x = 1 ;
+    }
+  
+</machines> .
+rewrites: 0
+result Cells: 
+<k>
+  x = x + 1 ;
+</k> 
+<machines>
+  
+    M1 |-> machine M1 ; {
+      x = 2 ;
+    }
+   
+    M2 |-> machine M2 ; {
+      x = 1 ;
+    }
+  
+</machines>
+==========================================
+reduce in P-CONFIGURATION-TEST : 
+<state>
+  
+    x |-> 23
+   
+    y |-> 4
+  
+</state> 
+<machines>
+  
+    M1 |-> machine M1 ; {
+      x = 2 ;
+    }
+   
+    M2 |-> machine M2 ; {
+      x = 1 ;
+    }
+  
+</machines> .
+rewrites: 0
+result Cells: 
+<state>
+  
+    x |-> 23
+   
+    y |-> 4
+  
+</state> 
+<machines>
+  
+    M1 |-> machine M1 ; {
+      x = 2 ;
+    }
+   
+    M2 |-> machine M2 ; {
+      x = 1 ;
+    }
+  
+</machines>
+Bye.

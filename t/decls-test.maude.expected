@@ -1,0 +1,38 @@
+Stmt: var x ;
+Stmt: var x ;
+var y ;
+Stmt: var x : Int ;
+Stmt: var x : Int ;
+var y : Int ;
+Stmt: state foo {
+  var x ;
+  var y : Int ;
+}
+Stmt: on eFoo do {
+  var x ;
+}
+Stmt: on eFoo do {
+  var x ;
+  goto foo ;
+}
+Exp: 1 + a
+Exp: 1 + a + 1
+Stmt: x = a + 1 ;
+Exps: a : Int,b : Int
+Exps: a : Int,b : Int
+Stmt: if (a <= 1) x = 1 ;
+else x = 2 ;
+Stmt: if (a <= 1) {
+  x = 1 ;
+  y = 2 ;
+}
+else x = 2 ;
+Stmt: machine foo ; {
+  var x : Int ;
+  var y : Int ;
+  on eBar do {
+    var z ;
+    goto bar ;
+  }
+}
+Bye.
