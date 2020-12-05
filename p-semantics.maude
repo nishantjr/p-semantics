@@ -1,29 +1,29 @@
 in "p-syntax.maude"
 
-mod P-SEMANTICS is including P-SYNTAX .
-  --- The K Sort
-  sort K .
-  subsort Exp Stmt < K .
+( mod P-SEMANTICS is including P-SYNTAX .
+    --- The K Sort
+    sort K .
+    subsort Exp Stmt < K .
 
-  --- Cells
-  sorts Cell Cells .
-  subsort Cell < Cells .
+    --- Cells
+    sorts Cell Cells .
+    subsort Cell < Cells .
 
-  op __ : Cell Cell -> Cells [prec 55 assoc comm id: .Cell] .
+    op __ : Cell Cell -> Cells [prec 55 assoc comm id: .Cell] .
 
-  --- Maps
-  sorts Binding Map .
-  subsort Binding < Map .
+    --- Maps
+    sorts Binding Map .
+    subsort Binding < Map .
 
-  op .Map : -> Map .
-  op _|->_ : Id K -> Binding [prec 50 format (n++i r o n--i) ] .
+    op .Map : -> Map .
+    op _|->_ : Id K -> Binding [prec 50 format (n++i r o n--i) ] .
 
-  op __ : Map Map -> Map [prec 55 assoc comm id: .Map] .
+    op __ : Map Map -> Map [prec 55 assoc comm id: .Map] .
 
-  op <k>_</k> : K -> Cell [prec 50 format (ncu on++i n--icu o)] .
-  op <state>_</state> : Map -> Cell [prec 50 format (nyu on++i n--iyu o)] .
-  op <machines>_</machines> : Map -> Cell [prec 50 format (ngu on++i n--igu o)] .
+    op <k>_</k> : K -> Cell [prec 50 format (ncu on++i n--icu o)] .
+    op <state>_</state> : Map -> Cell [prec 50 format (nyu on++i n--iyu o)] .
+    op <machines>_</machines> : Map -> Cell [prec 50 format (ngu on++i n--igu o)] .
 
-  op .Cell : -> Cell .
-endm
+    op .Cell : -> Cell .
+  endm )
 
