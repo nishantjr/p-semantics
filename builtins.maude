@@ -1,12 +1,8 @@
 set include BOOL off .   --- not needed if one runs maude with flag -no-prelude
 
-fmod UNDEFINED is
-  sort Undefined .
-  op undefined : -> Undefined .
-endfm
+fmod PL-BOOL is
 
-fmod PL-BOOL is including UNDEFINED .
-  sort Bool .  subsort Undefined < Bool .
+  sort Bool .
   op true : -> Bool [ctor special (id-hook SystemTrue)] .
   op false : -> Bool [ctor special (id-hook SystemFalse)] .
   op if_then_else_fi : Bool Universal Universal -> Universal [poly (2 3 0)
@@ -38,13 +34,11 @@ fmod PL-BOOL is including UNDEFINED .
   eq notBool A = A xorBool true .
   eq A orBool B = A andBool B xorBool A xorBool B .
   eq A impliesBool B = notBool(A xorBool A andBool B) .
-
-  eq undefined andBool A = undefined .
-  eq undefined xorBool A = undefined .
 endfm
 
 mod PL-INT is including PL-BOOL .
-  sort Int .  subsort Undefined < Int .
+
+  sort Int .
   op 0 : -> Int [ctor] .
   op sInt_ : Int -> Int [iter ctor special (id-hook SuccSymbol  term-hook zeroTerm (0))] .
   op -Int_ : Int -> Int [ctor special (
@@ -71,18 +65,4 @@ mod PL-INT is including PL-BOOL .
   var I1 I2 : Int .
  ceq maxInt(I1,I2) = I1 if I1 >Int I2 .
   eq maxInt(I1,I2) = I2 [owise] .
-
-  var I : Int .
-  eq sInt undefined = undefined .
-  eq -Int undefined = undefined .
-  eq undefined +Int I = undefined .
-  eq undefined *Int I = undefined .
-  eq undefined -Int I = undefined .
-  eq I -Int undefined = undefined .
-  eq undefined /Int I = undefined .
-  eq I /Int undefined = undefined .
-  eq undefined <=Int I = undefined .
-  eq I <=Int undefined = undefined .
-  eq undefined >Int I = undefined .
-  eq I >Int undefined = undefined .
 endm
