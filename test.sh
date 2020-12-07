@@ -11,7 +11,7 @@ dodiff() {
 }
 
 for t in t/*.maude; do
-  test_actual=$(mktemp -t tmp-tableaux-XXXXXX)
+  test_actual=$(mktemp -t maude-run-XXXXXX)
   runmaude "$t" </dev/null &> "$test_actual"
   dodiff "$test_actual" "$t.expected"
 done
