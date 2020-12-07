@@ -1,6 +1,6 @@
 in "builtins.maude" .
 
-mod P-SYNTAX is including PL-INT .
+mod P-SYNTAX is protecting PL-DOMAINS .
 
   --- Probably need a better way to define Ids
   sort Id .
