@@ -5,9 +5,13 @@ mod P-SEMANTICS is including P-SYNTAX .
   sort K .
   subsort Exp Stmt < K .
 
+  op .K : -> K .
+
   --- Cells
   sorts Cell Cells .
   subsort Cell < Cells .
+
+  op .Cell : -> Cell .
 
   op __ : Cell Cell -> Cells [prec 55 assoc comm id: .Cell] .
 
@@ -24,6 +28,17 @@ mod P-SEMANTICS is including P-SYNTAX .
   op <state>_</state> : Map -> Cell [prec 50 format (nyu o++i n--iyu o)] .
   op <machines>_</machines> : Map -> Cell [prec 50 format (ngu o++i n--igu o)] .
 
-  op .Cell : -> Cell .
+
+  var I : Id .
+  var B : Block .
+  var Ss : Stmt .
+  var M : Map .
+  var C : Cells .
+
+  --- Statment Execution
+
+  rl <k> ( machine I ; B ) Ss </k> <state> M </state> C
+  => <k> Ss </k> <state> I |-> ( machine I ; B ) M </state> C .
+
 endm
 

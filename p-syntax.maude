@@ -55,10 +55,11 @@ mod P-SYNTAX is protecting PL-DOMAINS .
   sorts Block Stmt .
   subsort Block < Stmt .
 
+  op .Stmt : -> Stmt .
   op {} : -> Block [format (b b o)] .
   op {_} : Stmt -> Block [format (d n++i n--i d)] .
   op _; : Exp -> Stmt [prec 40] .
-  op __ : Stmt Stmt -> Stmt [prec 60 gather (e E) format (d ni d)] .
+  op __ : Stmt Stmt -> Stmt [prec 60 gather (e E) id: .Stmt format (d ni d)] .
 
   --- Variable Statements
   op var_;   : Exp -> Stmt [prec 40 format (y o o o)] .

@@ -3,7 +3,7 @@
 set -e
 
 runmaude()  {
-  maude -no-banner -no-wrap <(echo 'set show timing off .') "$@"
+  maude -no-banner -no-wrap <(echo 'set show stats off . set show timing off .') "$@"
 }
 
 dodiff() {
