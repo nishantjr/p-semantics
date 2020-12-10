@@ -3,7 +3,6 @@ reduce in P-CONFIGURATION-TEST :
 <k>  x = x + 1 ;
   y = y + 2 ;
 </k> .
-rewrites: 0
 result Cell: 
 <k>  x = x + 1 ;
   y = y + 2 ;
@@ -14,7 +13,6 @@ reduce in P-CONFIGURATION-TEST :
     x = 2 ;
   }
 </k> .
-rewrites: 0
 result Cell: 
 <k>  machine M1 ; {
     x = 2 ;
@@ -32,7 +30,6 @@ reduce in P-CONFIGURATION-TEST :
       x = 1 ;
     }  
 </machines> .
-rewrites: 0
 result Cells: 
 <k>  x = x + 1 ;
 </k> 
@@ -58,7 +55,6 @@ reduce in P-CONFIGURATION-TEST :
       x = 1 ;
     }  
 </machines> .
-rewrites: 0
 result Cells: 
 <state>  
     x |-> 23   
