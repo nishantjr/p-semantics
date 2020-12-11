@@ -8,12 +8,12 @@ mod P-SEMANTICS is including P-SYNTAX .
   op .K : -> K .
 
   --- Cells
-  sorts Cell Cells .
-  subsort Cell < Cells .
+  sorts Cell Cfg .
+  subsort Cell < Cfg .
 
-  op .Cell : -> Cell .
+  op .Cell : -> Cfg .
 
-  op __ : Cell Cell -> Cells [prec 55 assoc comm id: .Cell] .
+  op __ : Cfg Cfg -> Cfg [prec 55 assoc comm id: .Cell] .
 
   --- Maps
   sorts Binding Map .
@@ -22,19 +22,19 @@ mod P-SEMANTICS is including P-SYNTAX .
   op .Map : -> Map .
   op _|->_ : Id K -> Binding [prec 50 format (n++i r o --i) ] .
 
-  op __ : Map Map -> Map [prec 55 assoc comm id: .Map] .
+  op __ : Map Map -> Map [prec 52 assoc comm id: .Map] .
 
-  op <k>_</k> : K -> Cell [prec 50 format (ncu o++i n--icu o)] .
-  op <machines>_</machines> : Map -> Cell [prec 50 format (ngu o++i n--igu o)] .
-  op <_|_> : K Map -> Cell [prec 50 format (o n++i n--ir o++in --in o)] .
-  op <soup>_</soup> : Cell -> Cell [prec 51 format (ncu o++in n--icu p)] .
+  op <k>_</k> : K -> Cell [prec 54 format (ncu o++i n--icu o)] .
+  op <machines>_</machines> : Map -> Cell [prec 54 format (ngu o++i n--igu o)] .
+  op <_|_> : K Map -> Cell [prec 53 format (o n++i --inr on++i --in o)] .
+  op <soup>_</soup> : Cell -> Cell [prec 54 format (ncu o++in n--icu p)] .
 
 
   var I : Id .
   var B : Block .
   var Ss : Stmt .
   var M : Map .
-  var C : Cells .
+  var C : Cfg .
 
   --- Statment Execution
 

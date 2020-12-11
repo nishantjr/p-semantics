@@ -2,17 +2,17 @@
 reduce in P-CONFIGURATION-TEST : 
 <soup>  
 <
-    x = 1
-  |    
-.Map  
+    x = 1  
+|
+    .Map  
 >
 </soup> .
 result Cell: 
 <soup>  
 <
-    x = 1
-  |    
-.Map  
+    x = 1  
+|
+    .Map  
 >
 </soup>
 ==========================================
@@ -27,7 +27,7 @@ reduce in P-CONFIGURATION-TEST :
       x = 1 ;
     }  
 </machines> .
-result Cells: 
+result Cfg: 
 <k>  x = x + 1 ;
 </k> 
 <machines>  
@@ -51,12 +51,12 @@ reduce in P-CONFIGURATION-TEST :
 <soup>  
 <
     x : int ;
-    y : int ;
-  |    
-.Map  
+    y : int ;  
+|
+    .Map  
 >
 </soup> .
-result Cells: 
+result Cfg: 
 <machines>  
     M1 |-> machine M1 ; {
       x = 2 ;
@@ -68,9 +68,9 @@ result Cells:
 <soup>  
 <
     x : int ;
-    y : int ;
-  |    
-.Map  
+    y : int ;  
+|
+    .Map  
 >
 </soup>
 Bye.
