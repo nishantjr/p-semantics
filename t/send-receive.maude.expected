@@ -1,6 +1,5 @@
 ==========================================
 reduce in P-SEND-RECIEVE-TEST : SenderPgm .
-rewrites: 1
 result Stmt: machine Sender sends ePing ; {
   var receiver : Receiver ;
   start state Init {
@@ -17,7 +16,6 @@ result Stmt: machine Sender sends ePing ; {
 }
 ==========================================
 reduce in P-SEND-RECIEVE-TEST : ReceiverPgm .
-rewrites: 1
 result Stmt: machine Receiver ; {
   start state Init {
     on ePing do {

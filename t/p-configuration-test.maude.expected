@@ -1,23 +1,20 @@
 ==========================================
 reduce in P-CONFIGURATION-TEST : 
-<k>  x = x + 1 ;
-  y = y + 2 ;
-</k> .
+<soup>  
+<
+    x = 1
+  |    
+.Map  
+>
+</soup> .
 result Cell: 
-<k>  x = x + 1 ;
-  y = y + 2 ;
-</k>
-==========================================
-reduce in P-CONFIGURATION-TEST : 
-<k>  machine M1 ; {
-    x = 2 ;
-  }
-</k> .
-result Cell: 
-<k>  machine M1 ; {
-    x = 2 ;
-  }
-</k>
+<soup>  
+<
+    x = 1
+  |    
+.Map  
+>
+</soup>
 ==========================================
 reduce in P-CONFIGURATION-TEST : 
 <k>  x = x + 1 ;
@@ -43,10 +40,6 @@ result Cells:
 </machines>
 ==========================================
 reduce in P-CONFIGURATION-TEST : 
-<state>  
-    x |-> 23   
-    y |-> 4  
-</state> 
 <machines>  
     M1 |-> machine M1 ; {
       x = 2 ;
@@ -54,12 +47,16 @@ reduce in P-CONFIGURATION-TEST :
     M2 |-> machine M2 ; {
       x = 1 ;
     }  
-</machines> .
+</machines> 
+<soup>  
+<
+    x : int ;
+    y : int ;
+  |    
+.Map  
+>
+</soup> .
 result Cells: 
-<state>  
-    x |-> 23   
-    y |-> 4  
-</state> 
 <machines>  
     M1 |-> machine M1 ; {
       x = 2 ;
@@ -67,5 +64,13 @@ result Cells:
     M2 |-> machine M2 ; {
       x = 1 ;
     }  
-</machines>
+</machines> 
+<soup>  
+<
+    x : int ;
+    y : int ;
+  |    
+.Map  
+>
+</soup>
 Bye.
