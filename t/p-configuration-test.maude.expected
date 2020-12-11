@@ -2,6 +2,8 @@
 reduce in P-CONFIGURATION-TEST : 
 <soup>  
 <
+  1  
+|
     x = 1  
 |
     .Map  
@@ -10,6 +12,8 @@ reduce in P-CONFIGURATION-TEST :
 result Cell: 
 <soup>  
 <
+  1  
+|
     x = 1  
 |
     .Map  
@@ -50,6 +54,8 @@ reduce in P-CONFIGURATION-TEST :
 </machines> 
 <soup>  
 <
+  0  
+|
     x : int ;
     y : int ;  
 |
@@ -67,6 +73,8 @@ result Cfg:
 </machines> 
 <soup>  
 <
+  0  
+|
     x : int ;
     y : int ;  
 |

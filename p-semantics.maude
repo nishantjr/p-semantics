@@ -13,21 +13,23 @@ mod P-SEMANTICS is including P-SYNTAX .
 
   op .Cell : -> Cfg .
 
-  op __ : Cfg Cfg -> Cfg [prec 55 assoc comm id: .Cell] .
+  op __ : Cfg Cfg -> Cfg [prec 65 assoc comm id: .Cell] .
 
   --- Maps
   sorts Binding Map .
   subsort Binding < Map .
 
   op .Map : -> Map .
-  op _|->_ : Id K -> Binding [prec 50 format (n++i r o --i) ] .
+  op _|->_ : Id K -> Binding [prec 60 format (n++i r o --i) ] .
 
-  op __ : Map Map -> Map [prec 52 assoc comm id: .Map] .
+  op __ : Map Map -> Map [prec 62 assoc comm id: .Map] .
 
-  op <k>_</k> : K -> Cell [prec 54 format (ncu o++i n--icu o)] .
-  op <machines>_</machines> : Map -> Cell [prec 54 format (ngu o++i n--igu o)] .
-  op <_|_> : K Map -> Cell [prec 53 format (o n++i --inr on++i --in o)] .
-  op <soup>_</soup> : Cell -> Cell [prec 54 format (ncu o++in n--icu p)] .
+  op <k>_</k> : K -> Cell [prec 64 format (ncu o++i n--icu o)] .
+  op <machines>_</machines> : Map -> Cell [prec 64 format (ngu o++i n--igu o)] .
+
+  --- "Reference" | "Executing Code" | "State"
+  op <_|_|_> : Int K Map -> Cell [prec 63 format (o ni++ --ino n++i --inr on++i --in o)] .
+  op <soup>_</soup> : Cell -> Cell [prec 64 format (ncu o++in n--icu p)] .
 
 
   var I : Id .
@@ -41,5 +43,13 @@ mod P-SEMANTICS is including P-SYNTAX .
   rl <k> ( machine I ; B ) Ss </k> <machines> M </machines> C
   => <k> Ss </k> <machines> I |-> ( machine I ; B ) M </machines> C .
 
+  rl <k> ( main machine I ; B ) Ss </k> <machines> M </machines> C
+  => <k> Ss </k> <machines> I |-> (main machine I ; B ) M </machines> C .
+
+  --- Create the main machine
+  rl <machines> I |-> ( main machine I ; B ) M </machines>
+     <soup> .Cell </soup> C
+  => <machines> I |-> ( main machine I ; B ) M </machines>
+     <soup> ( < 0 | B | .Map > ) </soup> C .
 endm
 

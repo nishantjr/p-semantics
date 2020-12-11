@@ -7,7 +7,7 @@ mod P-CONFIGURATION-TEST is including P-SEMANTICS .
 endm
 
 --- Soup
-red <soup> < x = 1 | .Map > </soup> .
+red <soup> < 1 | x = 1 | .Map > </soup> .
 
 --- Multiple Cells
 red <k> x = x + 1 ; </k>
@@ -22,7 +22,7 @@ red <machines>
       M2 |-> machine M2 ; { x = 1 ; }
     </machines>
     <soup>
-      < x : int ; y : int ; | .Map >
+      < 0 | x : int ; y : int ; | .Map >
     </soup> .
 
 quit .

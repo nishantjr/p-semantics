@@ -3,9 +3,9 @@ in "../../p-semantics.maude"
 mod TEST-MACHINES
   is including P-SEMANTICS .
 
-  ops M1 M2 : -> Id .
+  ops M1 M2 MainMachine : -> Id .
 
-  ops m1 m2 : -> Stmt .
+  ops m1 m2 mainMachine : -> Stmt .
 
   eq m1
    = machine M1 ; {
@@ -15,6 +15,12 @@ mod TEST-MACHINES
 
   eq m2
    = machine M2 ; {
+       a : int ;
+       b : int ;
+     } .
+
+  eq mainMachine
+   = main machine MainMachine ; {
        a : int ;
        b : int ;
      } .
