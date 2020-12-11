@@ -29,6 +29,8 @@ mod P-SYNTAX is protecting PL-DOMAINS .
   --- Machines
   op machine_;_ : Id Block -> Stmt .
   op machine_sends_;_ : Id Exps Block -> Stmt .
+  op main machine_;_ : Id Block -> Stmt .
+  op main machine_sends_;_ : Id Exps Block -> Stmt .
 
   --- Variable Type Expressions
   op _:_ : Id Type -> Exp [prec 35 format (d d g o)] .
