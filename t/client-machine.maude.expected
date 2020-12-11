@@ -1,4 +1,4 @@
-Stmt: machine ClientMachine sends eRequest ; {
+MachineStmt: machine ClientMachine sends eRequest ; {
   var a : int ;
   var server : ServerClientInterface ;
   var lastRecvSuccessfulReqId : int ;

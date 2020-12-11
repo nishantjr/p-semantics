@@ -27,10 +27,12 @@ mod P-SYNTAX is protecting PL-DOMAINS .
   op _&&_ : Exp Exp -> Exp [prec 55 gather (E e) format (d b o d)] .
 
   --- Machines
-  op machine_;_ : Id Block -> Stmt .
-  op machine_sends_;_ : Id Exps Block -> Stmt .
-  op main machine_;_ : Id Block -> Stmt .
-  op main machine_sends_;_ : Id Exps Block -> Stmt .
+  sort MachineStmt .
+  subsort MachineStmt < Stmt .
+
+  op machine_;_ : Id Block -> MachineStmt [prec 41] .
+  op machine_sends_;_ : Id Exps Block -> MachineStmt [prec 41] .
+  op main_ : MachineStmt -> Stmt [prec 42] .
 
   --- Variable Type Expressions
   op _:_ : Id Type -> Exp [prec 35 format (d d g o)] .
@@ -59,7 +61,7 @@ mod P-SYNTAX is protecting PL-DOMAINS .
 
   op .Stmt : -> Stmt .
   op {} : -> Block [format (b b o)] .
-  op {_} : Stmt -> Block [format (d n++i n--i d)] .
+  op {_} : Stmt -> Block [prec 39 format (d n++i n--i d)] .
   op _; : Exp -> Stmt [prec 40] .
   op __ : Stmt Stmt -> Stmt [prec 60 gather (e E) id: .Stmt format (d ni d)] .
 

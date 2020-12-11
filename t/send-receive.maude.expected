@@ -1,6 +1,6 @@
 ==========================================
 reduce in P-SEND-RECIEVE-TEST : SenderPgm .
-result Stmt: machine Sender sends ePing ; {
+result MachineStmt: machine Sender sends ePing ; {
   var receiver : Receiver ;
   start state Init {
     entry {
@@ -16,7 +16,7 @@ result Stmt: machine Sender sends ePing ; {
 }
 ==========================================
 reduce in P-SEND-RECIEVE-TEST : ReceiverPgm .
-result Stmt: machine Receiver ; {
+result MachineStmt: machine Receiver ; {
   start state Init {
     on ePing do {
       goto Done ;

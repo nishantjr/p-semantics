@@ -27,7 +27,7 @@ Stmt: if (a <= 1) {
   y = 2 ;
 }
 else x = 2 ;
-Stmt: machine foo ; {
+MachineStmt: machine foo ; {
   var x : Int ;
   var y : Int ;
   on eBar do {
