@@ -6,9 +6,8 @@ mod P-CONFIGURATION-TEST is including P-SEMANTICS .
 
 endm
 
---- Single Cell
-red <k> x = x + 1 ; y = y + 2 ; </k> .
-red <k> machine M1 ; { x = 2 ; } </k> .
+--- Soup
+red <soup> < x = 1 | .Map > </soup> .
 
 --- Multiple Cells
 red <k> x = x + 1 ; </k>
@@ -22,9 +21,9 @@ red <machines>
       M1 |-> machine M1 ; { x = 2 ; }
       M2 |-> machine M2 ; { x = 1 ; }
     </machines>
-    <state> x |-> 23 y |-> 4 </state> .
-
+    <soup>
+      < x : int ; y : int ; | .Map >
+    </soup> .
 
 quit .
-
 
